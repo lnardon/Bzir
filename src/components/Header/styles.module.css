@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.75rem;
+  margin-bottom: 4rem;
+
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.sourceBtn {
+  background-color: #f8f8f8;
+  color: #090306;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #f8f8f8;
+  clip-path: polygon(
+    0% 0%,
+    0% 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%,
+    0% 100%,
+    3% 100%,
+    3.1% 0%
+  );
+}
+
+.sourceBtn:hover {
+  clip-path: polygon(
+    0% 0%,
+    0% 100%,
+    100% 100%,
+    100% 0%,
+    10.1% 0%,
+    9.7% 100%,
+    3% 100%,
+    3.1% 0%
+  );
+}

@@ -1,9 +1,8 @@
-import AnimatedText from "animated-text-letters";
-import "animated-text-letters/dist/index.css";
 import "./App.css";
+import Header from "./components/Header";
 
 function App() {
-  return <AnimatedText text="Bezier" animation="slide-up" />;
+  return <Header />;
 }
 
 export default App;
