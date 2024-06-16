@@ -2,10 +2,27 @@ import AnimatedText from "animated-text-letters";
 import "./App.css";
 import Header from "./components/Header";
 import CurveDraw from "./components/CurveDraw";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function App() {
   const [bezierValue, setBezierValue] = useState("0.185, 0.356, 0.78, 0.99");
+
+  const slideRef = useRef<HTMLDivElement>(null);
+  const scaleRef = useRef<HTMLDivElement>(null);
+  const fadeRef = useRef<HTMLDivElement>(null);
+
+  function updateValue(value: string) {
+    setBezierValue(value);
+    if (slideRef.current) {
+      slideRef.current.style.animationTimingFunction = bezierValue;
+    }
+    if (scaleRef.current) {
+      scaleRef.current.style.animationTimingFunction = bezierValue;
+    }
+    if (fadeRef.current) {
+      fadeRef.current.style.animationTimingFunction = bezierValue;
+    }
+  }
 
   return (
     <div className="container">
@@ -25,7 +42,7 @@ function App() {
           >
             Shape the curve
           </h2>
-          <CurveDraw setBezierValue={setBezierValue} />
+          <CurveDraw setBezierValue={updateValue} />
         </div>
         <div
           style={{
@@ -43,17 +60,16 @@ function App() {
             Settings
           </h2>
           <div className="demo-container">
-            <div
-              className="square slide"
-              style={{
-                animationTimingFunction: `${bezierValue}`,
-              }}
-            >
+            <div ref={slideRef} className="square slide">
               slide-left
             </div>
             <div className="in-place-anim">
-              <div className="square scale">scale-up</div>
-              <div className="square fade">fade-in</div>
+              <div className="square scale" ref={scaleRef}>
+                scale-up
+              </div>
+              <div className="square fade" ref={fadeRef}>
+                fade-in
+              </div>
             </div>
           </div>
           <button className="playBtn">

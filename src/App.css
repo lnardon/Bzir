@@ -59,16 +59,16 @@
 }
 
 .slide {
-  animation: slide 2s ease forwards;
+  animation: slide 2s infinite;
   margin-bottom: 2rem;
 }
 
 .scale {
-  animation: scale 2s ease forwards;
+  animation: scale 2s infinite;
 }
 
 .fade {
-  animation: fade 2s ease forwards;
+  animation: fade 2s infinite;
 }
 
 .playBtn {

@@ -17,7 +17,6 @@ const BezierComponent = ({ setBezierValue }: { setBezierValue: any }) => {
   const [draggingPoint, setDraggingPoint] = useState<
     "point1" | "point2" | null
   >(null);
-  const [bezierValue, setBezierValue1] = useState("");
 
   useEffect(() => {
     const updateSize = () => {
@@ -39,31 +38,26 @@ const BezierComponent = ({ setBezierValue }: { setBezierValue: any }) => {
     setDraggingPoint(point);
   }, []);
 
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<SVGElement, MouseEvent>) => {
-      if (!draggingPoint || !svgRef.current) return;
+  const handleMouseMove = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+    if (!draggingPoint || !svgRef.current) return;
 
-      const svgRect = svgRef.current.getBoundingClientRect();
-      const newPosition = {
-        x: ((e.clientX - svgRect.left) / svgRect.width) * 100,
-        y: ((e.clientY - svgRect.top) / svgRect.height) * 100,
-      };
+    const svgRect = svgRef.current.getBoundingClientRect();
+    const newPosition = {
+      x: ((e.clientX - svgRect.left) / svgRect.width) * 100,
+      y: ((e.clientY - svgRect.top) / svgRect.height) * 100,
+    };
 
-      if (draggingPoint === "point1") {
-        setPoint1(newPosition);
-      } else if (draggingPoint === "point2") {
-        setPoint2(newPosition);
-      }
-      setBezierValue(
-        `cubic-bezier(${(point1.x / 100).toFixed(2)}, ${(
-          point1.y / 100
-        ).toFixed(2)}, ${(point2.x / 100).toFixed(2)}, ${(
-          point2.y / 100
-        ).toFixed(2)})`
-      );
-    },
-    [draggingPoint]
-  );
+    if (draggingPoint === "point1") {
+      setPoint1(newPosition);
+    } else if (draggingPoint === "point2") {
+      setPoint2(newPosition);
+    }
+    setBezierValue(
+      `cubic-bezier(${(point1.x / 100).toFixed(2)}, ${(point1.y / 100).toFixed(
+        2
+      )}, ${(point2.x / 100).toFixed(2)}, ${(point2.y / 100).toFixed(2)})`
+    );
+  };
 
   const handleMouseUp = useCallback(() => {
     setDraggingPoint(null);
