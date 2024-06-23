@@ -53,26 +53,30 @@ const BezierComponent = ({ setBezierValue }: { setBezierValue: any }) => {
       setPoint2(newPosition);
     }
     setBezierValue(
-      `cubic-bezier(${(point1.x / 100).toFixed(2)}, ${(point1.y / 100).toFixed(
-        2
-      )}, ${(point2.x / 100).toFixed(2)}, ${(point2.y / 100).toFixed(2)})`
+      `cubic-bezier(${(point1.x / 100).toFixed(2)}, ${(
+        Math.abs(point1.y - 100) / 100
+      ).toFixed(2)}, ${(point2.x / 100).toFixed(2)}, ${(
+        Math.abs(point2.y - 100) / 100
+      ).toFixed(2)})`
     );
   };
 
   const handleMouseUp = useCallback(() => {
     setDraggingPoint(null);
     setBezierValue(
-      `cubic-bezier(${(point1.x / 100).toFixed(2)}, ${(point1.y / 100).toFixed(
-        2
-      )}, ${(point2.x / 100).toFixed(2)}, ${(point2.y / 100).toFixed(2)})`
+      `cubic-bezier(${(point1.x / 100).toFixed(2)}, ${(
+        Math.abs(point1.y - 100) / 100
+      ).toFixed(2)}, ${(point2.x / 100).toFixed(2)}, ${(
+        Math.abs(point2.y - 100) / 100
+      ).toFixed(2)})`
     );
-  }, []);
+  }, [point1, point2]);
 
   const cubicBezierValue = `cubic-bezier(${(point1.x / 100).toFixed(2)}, ${(
-    point1.y / 100
-  ).toFixed(2)}, ${(point2.x / 100).toFixed(2)}, ${(point2.y / 100).toFixed(
-    2
-  )})`;
+    Math.abs(point1.y - 100) / 100
+  ).toFixed(2)}, ${(point2.x / 100).toFixed(2)}, ${(
+    Math.abs(point2.y - 100) / 100
+  ).toFixed(2)})`;
 
   const size = 512;
 

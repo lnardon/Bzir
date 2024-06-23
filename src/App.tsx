@@ -2,25 +2,23 @@ import AnimatedText from "animated-text-letters";
 import "./App.css";
 import Header from "./components/Header";
 import CurveDraw from "./components/CurveDraw";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 function App() {
-  const [bezierValue, setBezierValue] = useState("0.185, 0.356, 0.78, 0.99");
-
   const slideRef = useRef<HTMLDivElement>(null);
   const scaleRef = useRef<HTMLDivElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
 
   function updateValue(value: string) {
-    setBezierValue(value);
+    console.log(value);
     if (slideRef.current) {
-      slideRef.current.style.animationTimingFunction = bezierValue;
+      slideRef.current.style.animationTimingFunction = value;
     }
     if (scaleRef.current) {
-      scaleRef.current.style.animationTimingFunction = bezierValue;
+      scaleRef.current.style.animationTimingFunction = value;
     }
     if (fadeRef.current) {
-      fadeRef.current.style.animationTimingFunction = bezierValue;
+      fadeRef.current.style.animationTimingFunction = value;
     }
   }
 
