@@ -1,5 +1,5 @@
 import AnimatedText from "animated-text-letters";
-import "animated-text-letters/dist/index.css";
+import "animated-text-letters/index.css";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
@@ -8,8 +8,8 @@ const Header: React.FC = () => {
       <AnimatedText
         text="Bezier"
         animation="slide-down"
-        animateOnlyDifferentLetters={true}
-        delay={39}
+        transitionOnlyDifferentLetters={true}
+        delay={42}
       />
       <button
         className={styles.sourceBtn}
