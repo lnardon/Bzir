@@ -1,29 +1,22 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.25;
-  font-weight: 500;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #090306;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@keyframes move-horizontal {
+  from {
+    left: 0;
+  }
+  to {
+    left: calc(100% - 2rem);
+  }
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.animate-move-horizontal {
+  position: absolute;
+  animation-name: move-horizontal;
 }
 
-html,
-body {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  opacity: 1;
 }
