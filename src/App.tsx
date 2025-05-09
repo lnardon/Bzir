@@ -1,83 +1,113 @@
-import AnimatedText from "animated-text-letters";
-import "./App.css";
+import { useState, useEffect, useRef } from "react";
+import BezierCanvas from "./components/BezierCanvas";
+import ControlPanel from "./components/ControlPanel";
+import AnimationPreview from "./components/AnimationPreview";
 import Header from "./components/Header";
-import CurveDraw from "./components/CurveDraw";
-import { useRef } from "react";
+import { DEFAULT_BEZIER_POINTS } from "./utils/constants";
+import { Point } from "./types";
 
 function App() {
-  const slideRef = useRef<HTMLDivElement>(null);
-  const scaleRef = useRef<HTMLDivElement>(null);
-  const fadeRef = useRef<HTMLDivElement>(null);
+  const [bezierPoints, setBezierPoints] = useState<Point[]>(
+    DEFAULT_BEZIER_POINTS
+  );
+  const [duration, setDuration] = useState(1.5);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [canvasSize, setCanavasSize] = useState(400);
 
-  function updateValue(value: string) {
-    console.log(value);
-    if (slideRef.current) {
-      slideRef.current.style.animationTimingFunction = value;
-    }
-    if (scaleRef.current) {
-      scaleRef.current.style.animationTimingFunction = value;
-    }
-    if (fadeRef.current) {
-      fadeRef.current.style.animationTimingFunction = value;
-    }
-  }
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  const updateBezierPoints = (points: Point[]) => {
+    setBezierPoints(points);
+  };
+
+  const toggleAnimation = () => {
+    setIsPlaying((prev) => !prev);
+  };
+
+  const resetAnimation = () => {
+    setIsPlaying(false);
+    setTimeout(() => {
+      setIsPlaying(true);
+    }, 10);
+  };
+
+  useEffect(() => {
+    const size = editorRef?.current?.getBoundingClientRect().width || 400;
+    setCanavasSize(size - 48);
+  }, [editorRef]);
+
+  useEffect(() => {
+    document.addEventListener("resize", () => {
+      const size = editorRef?.current?.getBoundingClientRect().width || 400;
+      setCanavasSize(size - 48);
+    });
+  }, []);
 
   return (
-    <div className="container">
-      <Header />
-      <div className="main">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: 1,
-          }}
-        >
-          <h2
+    <div className="flex items-center min-h-screen bg-gray-200 p-4 sm:p-6 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        <Header />
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          <div
             style={{
-              marginBottom: "1rem",
+              animation: "popUp 0.8s 0.2s ease-in-out forwards",
             }}
+            className="flex items-center justify-center lg:col-span-3 bg-white rounded-xl shadow-lg overflow-hidden opacity-0"
           >
-            Shape the curve
-          </h2>
-          <CurveDraw setBezierValue={updateValue} />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: 1,
-            height: "100%",
-          }}
-        >
-          <h2
-            style={{
-              marginBottom: "1rem",
-            }}
-          >
-            Settings
-          </h2>
-          <div className="demo-container">
-            <div ref={slideRef} className="square slide">
-              slide-left
-            </div>
-            <div className="in-place-anim">
-              <div className="square scale" ref={scaleRef}>
-                scale-up
-              </div>
-              <div className="square fade" ref={fadeRef}>
-                fade-in
+            <div className="w-full p-6" ref={editorRef}>
+              <h2 className="text-xl font-semibold text-gray-800">Editor</h2>
+              <p className="mb-4 font-normal text-sm text-gray-500">
+                Drag the green control points to adjust the curve
+              </p>
+              <div className="flex justify-center">
+                <BezierCanvas
+                  points={bezierPoints}
+                  onChange={updateBezierPoints}
+                  size={canvasSize}
+                />
               </div>
             </div>
           </div>
-          <button className="playBtn">
-            <AnimatedText
-              text="Play Animation"
-              animation="pop-up"
-              animateOnlyDifferentLetters={true}
-              delay={32}
-            />
-          </button>
+
+          <div className="flex col-span-2 flex-col gap-6">
+            <div
+              style={{
+                animation: "popUp 0.6s 0.6s ease forwards",
+              }}
+              className="bg-white rounded-xl shadow-lg overflow-hidden opacity-0"
+            >
+              <div className="p-6">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                  Preview
+                </h2>
+                <AnimationPreview
+                  bezierPoints={bezierPoints}
+                  duration={duration}
+                  setDuration={setDuration}
+                  isPlaying={isPlaying}
+                  toggleAnimation={toggleAnimation}
+                />
+              </div>
+            </div>
+
+            <div
+              style={{
+                animation: "popUp 0.6s 0.8s ease forwards",
+              }}
+              className="bg-white rounded-xl shadow-lg overflow-hidden opacity-0"
+            >
+              <div className="p-6">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                  Controls
+                </h2>
+                <ControlPanel
+                  bezierPoints={bezierPoints}
+                  updateBezierPoints={updateBezierPoints}
+                  resetAnimation={resetAnimation}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

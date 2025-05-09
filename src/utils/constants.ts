@@ -2,8 +2,8 @@ import { Point } from '../types';
 
 export const DEFAULT_BEZIER_POINTS: Point[] = [
   { x: 0, y: 0 },  
-  { x: 0.42, y: 0 },
-  { x: 0.58, y: 1 },
+  { x: 0.5, y: 0.3 },
+  { x: 0.5, y: 0.7 },
   { x: 1, y: 1 }   
 ];
 
