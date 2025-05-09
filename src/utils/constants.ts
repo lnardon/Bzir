@@ -15,5 +15,6 @@ export const PRESET_BEZIER_CURVES: Record<string, [number, number, number, numbe
   'linear': [0, 0, 1, 1],
   'bounce': [0.175, 0.885, 0.32, 1.275],
   'snap': [0, 1, 0.5, 0],
-  'slow-mo': [0.2, 0.2, 0, 1]
+  'slow-mo': [0.2, 0.2, 0, 1],
+  'meme': [0.6969, 0.420, 0.420, 0.6969]
 };
