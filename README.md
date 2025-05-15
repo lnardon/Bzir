@@ -19,4 +19,4 @@ docker run -d -p 9898:80 lnardon/bzir
 - Vite
 - Tailwindcss
 - Lucide React Icons
-- Animated Text Lettes (npm)
+- Animated Text Letters (npm)
